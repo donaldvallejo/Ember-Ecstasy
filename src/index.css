@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 252 80% 74%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 262 84% 60%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 252 80% 74%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: url('/lovable-uploads/151d660f-b06d-4642-a30f-63fb12628b42.png');
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+.glass-panel {
+  @apply bg-black/30 backdrop-blur-sm border border-white/5 rounded-lg transition-all duration-300;
+}
+
+.glass-panel:hover {
+  @apply bg-black/40;
+}
