@@ -5,13 +5,14 @@ interface SectionProps {
   title: string;
   children: React.ReactNode;
   className?: string;
+  spacing?: string;
 }
 
-export const Section = ({ id, title, children, className = '' }: SectionProps) => {
+export const Section = ({ id, title, children, className = '', spacing = 'py-16' }: SectionProps) => {
   return (
     <section
       id={id}
-      className={`relative py-16 ${className}`}
+      className={`relative ${spacing} ${className}`}
     >
       <div className="container mx-auto px-4">
         <div>

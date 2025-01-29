@@ -3,22 +3,21 @@ import React from 'react';
 export const ConceptSection = () => {
   return (
     <div className="">
-      <div className="">
+      <div className="-mt-52">
         {/* Centered Title */}
-        <div className="text-center mb-8">
-          <h2 
-            className="text-9xl font-bold text-primary"
-            style={{ 
-              fontFamily: '"Alex Brush", cursive',
-              letterSpacing: '0.05em'
-            }}
-          >
-            Concept
-          </h2>
-        </div>
+        <h2 
+          className="text-9xl font-bold text-primary text-center"
+          style={{ 
+            fontFamily: '"Alex Brush", cursive',
+            letterSpacing: '0.05em',
+            marginBottom: '1rem'
+          }}
+        >
+          Concept
+        </h2>
         
         {/* Centered Image */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-4">
           <img 
             src="/lovable-uploads/905135ba-4c83-4db0-8252-83e3428e943f.png"
             alt="Concept Image"

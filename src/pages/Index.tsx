@@ -20,11 +20,11 @@ const Index = () => {
       <Navigation />
       <Hero />
       
-      <Section id="about" title="" className="pb-0">
+      <Section id="about" title="" spacing="pb-8">
         <AboutSection />
       </Section>
 
-      <Section id="concept" title="" className="pt-0">
+      <Section id="concept" title="" spacing="pt-0">
         <ConceptSection />
       </Section>
 

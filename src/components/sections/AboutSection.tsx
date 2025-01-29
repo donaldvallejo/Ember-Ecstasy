@@ -2,7 +2,7 @@ import React from 'react';
 
 export const AboutSection = () => {
   return (
-    <div className="-mb-8">
+    <div className="">
       <div className="container mx-auto px-4 mb-4">
         <p className="text-xl md:text-2xl text-white/90 font-serif italic text-center">
           "To reignite a sense of wonder through the passionate celebration of imagination"
