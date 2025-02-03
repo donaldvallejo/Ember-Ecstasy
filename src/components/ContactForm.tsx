@@ -1,53 +1,78 @@
-import React from 'react';
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 
 export const ContactForm = () => {
-  const { toast } = useToast();
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent",
-      description: "Thank you for reaching out! We'll get back to you soon.",
-    });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      form.current!,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    )
+      .then((result) => {
+        setSubmitStatus('success');
+        if (form.current) form.current.reset();
+      }, (error) => {
+        setSubmitStatus('error');
+        console.error('EmailJS error:', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-      <div className="space-y-2">
-        <label htmlFor="name" className="text-lg font-serif">Name</label>
-        <Input
-          id="name"
-          placeholder="Your name"
-          className="bg-black/20 border-primary/20 placeholder:text-gray-500"
+    <form ref={form} onSubmit={sendEmail} className="space-y-6">
+      <div>
+        <label className="block text-sm font-medium text-gray-300">Name</label>
+        <input
+          type="text"
+          name="user_name"
+          required
+          className="mt-1 block w-full px-3 py-2 bg-black/20 border border-primary/20 rounded-md shadow-sm backdrop-blur-sm text-white"
         />
       </div>
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-lg font-serif">Email</label>
-        <Input
-          id="email"
+      <div>
+        <label className="block text-sm font-medium text-gray-300">Email</label>
+        <input
           type="email"
-          placeholder="your@email.com"
-          className="bg-black/20 border-primary/20 placeholder:text-gray-500"
+          name="user_email"
+          required
+          className="mt-1 block w-full px-3 py-2 bg-black/20 border border-primary/20 rounded-md shadow-sm backdrop-blur-sm text-white"
         />
       </div>
-      <div className="space-y-2">
-        <label htmlFor="message" className="text-lg font-serif">Message</label>
-        <Textarea
-          id="message"
-          placeholder="Your message..."
-          className="bg-black/20 border-primary/20 placeholder:text-gray-500 min-h-[150px]"
-        />
+      <div>
+        <label className="block text-sm font-medium text-gray-300">Message</label>
+        <textarea
+          name="message"
+          required
+          rows={4}
+          className="mt-1 block w-full px-3 py-2 bg-black/20 border border-primary/20 rounded-md shadow-sm backdrop-blur-sm text-white"
+        ></textarea>
       </div>
       <Button 
-        type="submit"
-        className="w-full bg-primary hover:bg-primary/80 text-white font-serif text-lg py-6"
+        type="submit" 
+        disabled={isSubmitting}
+        className="w-full"
       >
-        Send Message
+        {isSubmitting ? 'Sending...' : 'Send Message'}
       </Button>
+      
+      {submitStatus === 'success' && (
+        <p className="text-green-400 text-center">Message sent successfully!</p>
+      )}
+      {submitStatus === 'error' && (
+        <p className="text-red-400 text-center">Failed to send message. Please try again.</p>
+      )}
     </form>
   );
 };
