@@ -19,7 +19,7 @@ function PageViewTracker() {
 
 function App() {
   useEffect(() => {
-    // Initialize Google Analytics
+    // Initialize Google Analytics tester
     if (GA_MEASUREMENT_ID) {
       initGA(GA_MEASUREMENT_ID);
     } else {
