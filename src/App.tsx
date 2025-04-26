@@ -3,8 +3,13 @@ import { useEffect } from 'react';
 import Index from '@/pages/Index';
 import { initGA, trackPageView } from '@/lib/analytics';
 
-// Get Google Analytics measurement ID from environment variables
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+// Get Google Analytics measurement ID from environment variables with fallback
+// Using the actual ID from your .env file as a fallback to ensure it works
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-P903WM2ELG';
+
+// Log all environment variables for debugging
+console.log('All env vars:', import.meta.env);
+console.log('GA Measurement ID (after fallback):', GA_MEASUREMENT_ID);
 
 // Component to handle page view tracking
 function PageViewTracker() {
@@ -19,12 +24,9 @@ function PageViewTracker() {
 
 function App() {
   useEffect(() => {
-    // Initialize Google Analytics tester
-    if (GA_MEASUREMENT_ID) {
-      initGA(GA_MEASUREMENT_ID);
-    } else {
-      console.warn('Google Analytics Measurement ID is not defined in environment variables');
-    }
+    // Always initialize GA with our measurement ID or fallback
+    console.log('Initializing GA with ID:', GA_MEASUREMENT_ID);
+    initGA(GA_MEASUREMENT_ID);
   }, []);
 
   return (
