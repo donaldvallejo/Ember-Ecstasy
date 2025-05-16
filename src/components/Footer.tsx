@@ -11,7 +11,7 @@ export const Footer = () => {
           </div>
           <div>
             <h3 className="text-xl font-serif text-primary mb-4">Contact</h3>
-            <p className="text-gray-300">info@emberandecstasy.com</p>
+            <p className="text-gray-300">emberandecstasy@gmail.com</p>
           </div>
           <div>
             <h3 className="text-xl font-serif text-primary mb-4">Follow Us</h3>

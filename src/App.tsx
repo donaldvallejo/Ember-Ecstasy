@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Index from '@/pages/Index';
+import Shop from '@/pages/Shop';
 import { initGA, trackPageView } from '@/lib/analytics';
 
 // Get Google Analytics measurement ID from environment variables with fallback
@@ -34,6 +35,7 @@ function App() {
       <PageViewTracker />
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
     </Router>
   );
