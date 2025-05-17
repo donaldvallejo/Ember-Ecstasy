@@ -37,7 +37,7 @@ const Shop = () => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.eventbrite.com/checkout-external?eid=${eventbriteEventId}`;
       iframe.style.width = '100%';
-      iframe.style.height = '400px';
+      iframe.style.height = '700px';
       iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
       container.innerHTML = ''; // Clear existing content
@@ -86,13 +86,13 @@ const Shop = () => {
             <h3 className="text-2xl font-serif italic mb-4">Get Your Tickets</h3>
             <p className="mb-6">Secure your spot at the festival with our various ticket options.</p>
             
-            {/* Direct Eventbrite Widget Container */}
-            <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[400px]">
+            {/* Direct Eventbrite Widget Container - Increased size */}
+            <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[700px] w-full">
               {/* iframe will be injected here via JavaScript */}
             </div>
             
             {/* Alternative button that links directly to Eventbrite */}
-            <div className="text-center mt-4">
+            <div className="text-center mt-8">
               <a 
                 href={`https://www.eventbrite.com/e/${eventbriteEventId}`}
                 target="_blank"
