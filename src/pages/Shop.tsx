@@ -37,7 +37,7 @@ const Shop = () => {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.eventbrite.com/checkout-external?eid=${eventbriteEventId}`;
       iframe.style.width = '100%';
-      iframe.style.height = '900px';
+      iframe.style.height = '750px';
       iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
       container.innerHTML = ''; // Clear existing content
