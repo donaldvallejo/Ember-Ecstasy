@@ -11,7 +11,7 @@ export const AboutSection = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-5 gap-2 items-start">
         <div className="md:col-span-2 relative z-10">
-          <div className="rounded-xl bg-black/10 backdrop-blur-sm px-6 py-4 shadow-lg 
+          <div className="rounded-xl bg-black/10 backdrop-blur-sm p-0 shadow-lg 
             transform transition-all duration-500 hover:bg-black/20">
             <h2 className="text-4xl font-serif italic font-bold mb-4 text-primary">About</h2>
             <p className="text-lg leading-relaxed text-white/90">

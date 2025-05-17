@@ -5,10 +5,23 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 
+// Add TypeScript declaration for Eventbrite
+declare global {
+  interface Window {
+    EBWidgets?: {
+      createWidget: (config: any) => void;
+    };
+    ShopifyBuy?: any;
+  }
+}
+
 const Shop = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Get Eventbrite Event ID from environment variables
+  const eventbriteEventId = import.meta.env.VITE_EVENTBRITE_EVENT_ID || '1369825347489';
 
   // This useEffect will load Shopify and Eventbrite scripts when the component mounts
   useEffect(() => {
@@ -24,6 +37,19 @@ const Shop = () => {
     eventbriteScript.async = true;
     document.body.appendChild(eventbriteScript);
     
+    // Initialize Eventbrite widget once script loads
+    eventbriteScript.onload = () => {
+      if (window.EBWidgets) {
+        window.EBWidgets.createWidget({
+          widgetType: 'checkout',
+          eventId: eventbriteEventId,
+          modal: true,
+          modalTriggerElementId: 'buy-tickets-button',
+          iframeContainerId: `eventbrite-widget-container-${eventbriteEventId}`
+        });
+      }
+    };
+    
     // Cleanup function to remove scripts when component unmounts
     return () => {
       if (document.body.contains(shopifyScript)) {
@@ -33,7 +59,7 @@ const Shop = () => {
         document.body.removeChild(eventbriteScript);
       }
     };
-  }, []);
+  }, [eventbriteEventId]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/70 via-black/50 to-black/70">
@@ -77,13 +103,13 @@ const Shop = () => {
             <h3 className="text-2xl font-serif italic mb-4">Get Your Tickets</h3>
             <p className="mb-6">Secure your spot at the festival with our various ticket options.</p>
             
-            {/* Eventbrite Widget Placeholder */}
-            <div className="eventbrite-widget-placeholder mb-4">
+            {/* Eventbrite Widget Container */}
+            <div id={`eventbrite-widget-container-${eventbriteEventId}`} className="mb-4">
               <div className="p-8 border border-dashed border-primary/30 rounded-lg text-center">
-                <p className="text-foreground/60">Eventbrite tickets will appear here</p>
-                <p className="text-sm text-foreground/40 mt-2">Connect your Eventbrite event to display tickets</p>
+                <p className="text-foreground/60">Eventbrite tickets will load here</p>
+                <p className="text-sm text-foreground/40 mt-2">Click the button below to view tickets</p>
                 
-                {/* Sample button for Eventbrite modal trigger */}
+                {/* Button for Eventbrite modal trigger */}
                 <button 
                   id="buy-tickets-button" 
                   type="button"
@@ -93,15 +119,6 @@ const Shop = () => {
                 </button>
               </div>
             </div>
-            
-            {/* Eventbrite Widget Script would go here in production */}
-            {/*
-            <div class="eventbrite-widget" data-widget-id="YOUR_WIDGET_ID">
-              <script>
-                // Eventbrite widget script would go here
-              </script>
-            </div>
-            */}
           </div>
         </div>
       </Section>
