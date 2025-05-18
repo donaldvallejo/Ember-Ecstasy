@@ -5,12 +5,9 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 
-// Add TypeScript declaration for Eventbrite
+// Add TypeScript declaration for Shopify
 declare global {
   interface Window {
-    EBWidgets?: {
-      createWidget: (config: any) => void;
-    };
     ShopifyBuy?: any;
   }
 }
@@ -23,7 +20,7 @@ const Shop = () => {
   // Get Eventbrite Event ID from environment variables
   const eventbriteEventId = import.meta.env.VITE_EVENTBRITE_EVENT_ID || '1369825347489';
 
-  // This useEffect will load Shopify and Eventbrite scripts when the component mounts
+  // This useEffect will load Shopify scripts when the component mounts
   useEffect(() => {
     // Load Shopify Buy Button SDK
     const shopifyScript = document.createElement('script');
@@ -31,42 +28,13 @@ const Shop = () => {
     shopifyScript.async = true;
     document.body.appendChild(shopifyScript);
     
-    // Load Eventbrite Widget SDK
-    const eventbriteScript = document.createElement('script');
-    eventbriteScript.src = 'https://www.eventbrite.com/static/widgets/eb_widgets.js';
-    eventbriteScript.async = true;
-    
-    eventbriteScript.onload = () => {
-      if (window.EBWidgets) {
-        const widgetOptions = {
-          widgetType: 'ticket',
-          eventId: eventbriteEventId,
-          modal: false,
-          modalTriggerElementId: 'eventbrite-widget-modal-trigger',
-          onOrderComplete: () => console.log('Order complete!')
-        };
-        
-        window.EBWidgets.createWidget({
-          widgetType: widgetOptions.widgetType,
-          eventId: widgetOptions.eventId,
-          iframeContainerId: 'eventbrite-widget-container',
-          iframeHeight: 750
-        });
-      }
-    };
-    
-    document.body.appendChild(eventbriteScript);
-    
     // Cleanup function to remove scripts when component unmounts
     return () => {
       if (document.body.contains(shopifyScript)) {
         document.body.removeChild(shopifyScript);
       }
-      if (document.body.contains(eventbriteScript)) {
-        document.body.removeChild(eventbriteScript);
-      }
     };
-  }, [eventbriteEventId]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/70 via-black/50 to-black/70">
@@ -83,9 +51,17 @@ const Shop = () => {
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
             
-            {/* Eventbrite Widget Container */}
-            <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[700px] w-full">
-              {/* The Eventbrite widget will be loaded here */}
+            {/* Direct Eventbrite iframe embed */}
+            <div className="mb-4 rounded-lg overflow-hidden min-h-[600px] w-full">
+              <iframe
+                src={`https://www.eventbrite.com/tickets-external?eid=${eventbriteEventId}&ref=etckt`}
+                frameBorder="0"
+                width="100%"
+                height="600"
+                scrolling="auto"
+                title="Eventbrite Ticket Widget"
+                className="rounded-lg"
+              ></iframe>
             </div>
             
             {/* Alternative button that links directly to Eventbrite */}
