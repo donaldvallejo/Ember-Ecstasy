@@ -72,28 +72,6 @@ const Shop = () => {
     <div className="min-h-screen bg-gradient-to-b from-black/70 via-black/50 to-black/70">
       <Navigation />
       
-      <div className="pt-24 pb-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-serif italic font-bold mb-4 text-primary">Shop</h1>
-          <p className="text-foreground/80 text-xl mb-12">Festival Merchandise and Tickets</p>
-        </div>
-      </div>
-      
-      <Section id="merchandise" title="Festival Merchandise" spacing="pb-16">
-        <div className="grid grid-cols-1 gap-8">
-          <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
-            
-            {/* Shopify Buy Button Placeholder */}
-            <div id="product-component-placeholder" className="mb-4">
-              <div className="p-8 border border-dashed border-primary/30 rounded-lg text-center">
-                <p className="text-foreground/60">Shopify products will appear here</p>
-                <p className="text-sm text-foreground/40 mt-2">Connect your Shopify store to display products</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-      
       <Section id="tickets" title="Festival Tickets" spacing="pt-8 pb-16">
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
@@ -127,6 +105,29 @@ const Shop = () => {
       >
         <ArrowUp className="h-6 w-6" />
       </Button>
+
+      <div className="pt-24 pb-8">
+        <div className="container mx-auto px-4">
+          <h1 className="text-5xl font-serif italic font-bold mb-4 text-primary">Shop</h1>
+          <p className="text-foreground/80 text-xl mb-12">Festival Merchandise and Tickets</p>
+        </div>
+      </div>
+      
+      <Section id="merchandise" title="Festival Merchandise" spacing="pb-16">
+        <div className="grid grid-cols-1 gap-8">
+          <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
+            
+            {/* Shopify Buy Button Placeholder */}
+            <div id="product-component-placeholder" className="mb-4">
+              <div className="p-8 border border-dashed border-primary/30 rounded-lg text-center">
+                <p className="text-foreground/60">Shopify products will appear here</p>
+                <p className="text-sm text-foreground/40 mt-2">Connect your Shopify store to display products</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
     </div>
   );
 };
