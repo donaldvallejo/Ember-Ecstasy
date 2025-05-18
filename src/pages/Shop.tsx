@@ -52,12 +52,12 @@ const Shop = () => {
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
             
             {/* Direct Eventbrite iframe embed */}
-            <div className="mb-4 rounded-lg overflow-hidden min-h-[600px] w-full">
+            <div className="mb-4 rounded-lg overflow-hidden min-h-[750px] w-full">
               <iframe
-                src={`https://www.eventbrite.com/tickets-external?eid=${eventbriteEventId}&ref=etckt`}
+                src={`https://www.eventbrite.com/checkout-external?eid=${eventbriteEventId}`}
                 frameBorder="0"
-                width="100%"
-                height="600"
+                width="100%" 
+                height="750"
                 scrolling="auto"
                 title="Eventbrite Ticket Widget"
                 className="rounded-lg"
