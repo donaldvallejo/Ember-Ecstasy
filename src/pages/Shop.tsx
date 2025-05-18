@@ -39,7 +39,7 @@ const Shop = () => {
     eventbriteScript.onload = () => {
       if (window.EBWidgets) {
         const widgetOptions = {
-          widgetType: 'checkout',
+          widgetType: 'ticket',
           eventId: eventbriteEventId,
           modal: false,
           modalTriggerElementId: 'eventbrite-widget-modal-trigger',
@@ -82,8 +82,6 @@ const Shop = () => {
       <Section id="merchandise" title="Festival Merchandise" spacing="pb-16">
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
-            <h3 className="text-2xl font-serif italic mb-4">Official Merchandise</h3>
-            <p className="mb-6">Support our festival and take home a piece of the experience with our exclusive merchandise.</p>
             
             {/* Shopify Buy Button Placeholder */}
             <div id="product-component-placeholder" className="mb-4">
@@ -99,8 +97,6 @@ const Shop = () => {
       <Section id="tickets" title="Festival Tickets" spacing="pt-8 pb-16">
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
-            <h3 className="text-2xl font-serif italic mb-4">Get Your Tickets</h3>
-            <p className="mb-6">Secure your spot at the festival with our various ticket options.</p>
             
             {/* Eventbrite Widget Container */}
             <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[700px] w-full">
