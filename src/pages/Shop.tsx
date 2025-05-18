@@ -103,7 +103,7 @@ const Shop = () => {
       <Section id="merchandise" title="Festival Merchandise" spacing="pb-16">
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
-            <h3 className="text-2xl font-serif italic mb-4">Official Merchandise</h3>
+            <h3 className="text-2xl font-serif italic mb-4 text-primary">Official Merchandise</h3>
             <p className="mb-6">Support our festival and take home a piece of the experience with our exclusive merchandise.</p>
             
             {/* Merchandise display */}
@@ -111,9 +111,9 @@ const Shop = () => {
               <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-4 rounded-lg">
                 <div className="aspect-square rounded-lg overflow-hidden mb-4">
                   <img 
-                    src="/merch-hoodie.jpg" 
+                    src="/lovable-uploads/Hoodie.png" 
                     alt="Festival Hoodie" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     onError={(e) => {
                       // Fallback image if the hoodie image is not found
                       const target = e.target as HTMLImageElement;
@@ -121,17 +121,17 @@ const Shop = () => {
                     }}
                   />
                 </div>
-                <h4 className="text-xl font-bold mb-1">Festival Hoodie</h4>
+                <h4 className="text-xl font-bold mb-1 text-primary">Hoodie</h4>
                 <p className="text-foreground/70 mb-3">Stay warm in style with our premium festival hoodie.</p>
-                <p className="text-lg font-bold mb-4">$50.00 USD</p>
+                <p className="text-lg font-bold mb-4">$60.00 USD</p>
               </div>
               
               <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-4 rounded-lg">
                 <div className="aspect-square rounded-lg overflow-hidden mb-4">
                   <img 
-                    src="/merch-tshirt.jpg" 
+                    src="/lovable-uploads/Shirt.png" 
                     alt="Festival T-Shirt" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     onError={(e) => {
                       // Fallback image if the t-shirt image is not found
                       const target = e.target as HTMLImageElement;
@@ -139,9 +139,9 @@ const Shop = () => {
                     }}
                   />
                 </div>
-                <h4 className="text-xl font-bold mb-1">Festival T-Shirt</h4>
+                <h4 className="text-xl font-bold mb-1 text-primary">T-Shirt</h4>
                 <p className="text-foreground/70 mb-3">Classic festival tee featuring our iconic logo.</p>
-                <p className="text-lg font-bold mb-4">$35.00 USD</p>
+                <p className="text-lg font-bold mb-4">$40.00 USD</p>
               </div>
             </div>
             
