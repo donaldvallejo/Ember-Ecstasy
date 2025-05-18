@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 
-// Add TypeScript declaration for Eventbrite
+// Add TypeScript declaration for Eventbrite store
 declare global {
   interface Window {
     EBWidgets?: {
