@@ -40,8 +40,20 @@ const Shop = () => {
       iframe.style.height = '700px';
       iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
+      iframe.style.filter = 'brightness(0.85) contrast(1.1)'; // Darken the iframe content
+      iframe.classList.add('eventbrite-dark-iframe'); // Add class for additional styling
       container.innerHTML = ''; // Clear existing content
       container.appendChild(iframe);
+      
+      // Insert dark mode style for iframe
+      const style = document.createElement('style');
+      style.textContent = `
+        .eventbrite-dark-iframe {
+          mix-blend-mode: multiply;
+          background-color: #111;
+        }
+      `;
+      document.head.appendChild(style);
     }
     
     // Cleanup function to remove scripts when component unmounts
@@ -96,8 +108,11 @@ const Shop = () => {
             
             {/* Ticket widget container with theme-matching frame */}
             <div className="relative rounded-lg overflow-hidden">
+              {/* Dark mode background for iframe */}
+              <div className="absolute inset-0 bg-black/80 z-0"></div>
+              
               {/* The iframe container */}
-              <div id="eventbrite-iframe-container" className="relative z-10 min-h-[700px] w-full backdrop-blur-sm">
+              <div id="eventbrite-iframe-container" className="relative z-10 min-h-[700px] w-full backdrop-blur-sm bg-black/50">
                 {/* iframe will be injected here via JavaScript */}
               </div>
               
@@ -112,6 +127,9 @@ const Shop = () => {
               
               {/* Overlay frame corners - bottom right */}
               <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#ea384c] rounded-br-lg z-20 pointer-events-none"></div>
+              
+              {/* Dark overlay with red accent */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-[#ea384c]/10 mix-blend-multiply pointer-events-none z-20"></div>
             </div>
             
             {/* Bottom edge glow effect */}
