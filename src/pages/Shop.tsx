@@ -22,16 +22,87 @@ const Shop = () => {
   
   // Reference to manage widget loading
   const eventbriteLoaded = useRef(false);
+  const shopifyLoaded = useRef(false);
 
   // Get Eventbrite Event ID from environment variables
   const eventbriteEventId = import.meta.env.VITE_EVENTBRITE_EVENT_ID || '1369825347489';
 
+  // Shopify store information
+  const shopifyDomain = 'ember-ecstasy.myshopify.com';
+  const shopifyStorefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'YOUR_STOREFRONT_ACCESS_TOKEN';
+  
   // This useEffect will load scripts when the component mounts
   useEffect(() => {
     // Load Shopify Buy Button SDK
     const shopifyScript = document.createElement('script');
     shopifyScript.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
     shopifyScript.async = true;
+    
+    // Initialize Shopify Buy Button once script loads
+    shopifyScript.onload = () => {
+      if (window.ShopifyBuy && !shopifyLoaded.current) {
+        const client = window.ShopifyBuy.buildClient({
+          domain: shopifyDomain,
+          storefrontAccessToken: shopifyStorefrontAccessToken
+        });
+        
+        // Create UI for a collection or product
+        window.ShopifyBuy.UI.onReady(client).then(ui => {
+          // Create a product
+          ui.createComponent('collection', {
+            id: 'all',
+            node: document.getElementById('shopify-collection-component'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D', // ${amount}
+            options: {
+              product: {
+                styles: {
+                  product: {
+                    '@media (min-width: 601px)': {
+                      'max-width': '100%',
+                      'margin-left': '0',
+                      'margin-bottom': '50px'
+                    },
+                    'text-align': 'left',
+                    'img': {
+                      'border-radius': '8px'
+                    }
+                  },
+                  title: {
+                    'font-size': '20px',
+                    'color': '#ffffff'
+                  },
+                  button: {
+                    'background-color': '#ea384c',
+                    'color': '#000',
+                    'border-radius': '8px',
+                    ':hover': {
+                      'background-color': '#d3303e'
+                    }
+                  },
+                  price: {
+                    'color': '#ffffff'
+                  }
+                }
+              },
+              cart: {
+                styles: {
+                  button: {
+                    'background-color': '#ea384c',
+                    'color': '#000',
+                    ':hover': {
+                      'background-color': '#d3303e'
+                    }
+                  }
+                }
+              }
+            }
+          });
+        });
+        
+        shopifyLoaded.current = true;
+      }
+    };
+    
     document.body.appendChild(shopifyScript);
     
     // Load Eventbrite Widget SDK
@@ -68,7 +139,7 @@ const Shop = () => {
         document.body.removeChild(shopifyScript);
       }
     };
-  }, [eventbriteEventId]);
+  }, [eventbriteEventId, shopifyDomain, shopifyStorefrontAccessToken]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/70 via-black/50 to-black/70">
@@ -108,13 +179,24 @@ const Shop = () => {
       <Section id="merchandise" title="Festival Merchandise" spacing="pb-16">
         <div className="grid grid-cols-1 gap-8">
           <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
+            <h3 className="text-2xl font-serif italic mb-4">Official Merchandise</h3>
+            <p className="mb-6">Support our festival and take home a piece of the experience with our exclusive merchandise.</p>
             
-            {/* Shopify Buy Button Placeholder */}
-            <div id="product-component-placeholder" className="mb-4">
-              <div className="p-8 border border-dashed border-primary/30 rounded-lg text-center">
-                <p className="text-foreground/60">Shopify products will appear here</p>
-                <p className="text-sm text-foreground/40 mt-2">Connect your Shopify store to display products</p>
-              </div>
+            {/* Shopify Buy Button Component */}
+            <div id="shopify-collection-component" className="mb-4">
+              {/* Shopify products will be loaded here */}
+            </div>
+            
+            {/* Shop directly link */}
+            <div className="text-center mt-8">
+              <a 
+                href={`https://${shopifyDomain}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-black bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              >
+                Visit Shop
+              </a>
             </div>
           </div>
         </div>
