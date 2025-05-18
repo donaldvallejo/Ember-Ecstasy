@@ -209,8 +209,23 @@ const Shop = () => {
             <p className="mb-6">Support our festival and take home a piece of the experience with our exclusive merchandise.</p>
             
             {/* Shopify Buy Button Component */}
-            <div id="shopify-collection-component" className="mb-4">
-              {/* Shopify products will be loaded here */}
+            <div id="shopify-collection-component" className="mb-4 w-full min-h-[600px] relative">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm border border-primary/10 rounded-lg">
+                <p className="text-foreground/60">Loading merchandise...</p>
+              </div>
+              <iframe 
+                src={`https://${shopifyDomain}/collections/all`}
+                frameBorder="0"
+                width="100%" 
+                height="600"
+                scrolling="auto"
+                title="Shopify Products"
+                className="rounded-lg"
+                onLoad={(e) => {
+                  // Hide the loading state once the iframe loads
+                  e.target.previousSibling.style.display = 'none';
+                }}
+              ></iframe>
             </div>
             
             {/* Shop directly link */}
