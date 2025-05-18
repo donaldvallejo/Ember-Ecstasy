@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 
-// Add TypeScript declaration for Eventbrite store
+// Add TypeScript declaration for Eventbrite
 declare global {
   interface Window {
     EBWidgets?: {
@@ -31,23 +31,39 @@ const Shop = () => {
     shopifyScript.async = true;
     document.body.appendChild(shopifyScript);
     
-    // Direct Eventbrite embed approach
-    const container = document.getElementById('eventbrite-widget-container');
-    if (container) {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.eventbrite.com/checkout-external?eid=${eventbriteEventId}`;
-      iframe.style.width = '100%';
-      iframe.style.height = '750px';
-      iframe.style.border = 'none';
-      iframe.style.borderRadius = '8px';
-      container.innerHTML = ''; // Clear existing content
-      container.appendChild(iframe);
-    }
+    // Load Eventbrite Widget SDK
+    const eventbriteScript = document.createElement('script');
+    eventbriteScript.src = 'https://www.eventbrite.com/static/widgets/eb_widgets.js';
+    eventbriteScript.async = true;
+    
+    eventbriteScript.onload = () => {
+      if (window.EBWidgets) {
+        const widgetOptions = {
+          widgetType: 'checkout',
+          eventId: eventbriteEventId,
+          modal: false,
+          modalTriggerElementId: 'eventbrite-widget-modal-trigger',
+          onOrderComplete: () => console.log('Order complete!')
+        };
+        
+        window.EBWidgets.createWidget({
+          widgetType: widgetOptions.widgetType,
+          eventId: widgetOptions.eventId,
+          iframeContainerId: 'eventbrite-widget-container',
+          iframeHeight: 750
+        });
+      }
+    };
+    
+    document.body.appendChild(eventbriteScript);
     
     // Cleanup function to remove scripts when component unmounts
     return () => {
       if (document.body.contains(shopifyScript)) {
         document.body.removeChild(shopifyScript);
+      }
+      if (document.body.contains(eventbriteScript)) {
+        document.body.removeChild(eventbriteScript);
       }
     };
   }, [eventbriteEventId]);
@@ -86,9 +102,9 @@ const Shop = () => {
             <h3 className="text-2xl font-serif italic mb-4">Get Your Tickets</h3>
             <p className="mb-6">Secure your spot at the festival with our various ticket options.</p>
             
-            {/* Direct Eventbrite Widget Container - Increased size */}
+            {/* Eventbrite Widget Container */}
             <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[700px] w-full">
-              {/* iframe will be injected here via JavaScript */}
+              {/* The Eventbrite widget will be loaded here */}
             </div>
             
             {/* Alternative button that links directly to Eventbrite */}
