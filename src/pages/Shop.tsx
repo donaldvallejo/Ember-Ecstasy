@@ -32,12 +32,12 @@ const Shop = () => {
     document.body.appendChild(shopifyScript);
     
     // Direct Eventbrite embed approach
-    const container = document.getElementById('eventbrite-widget-container');
+    const container = document.getElementById('eventbrite-iframe-container');
     if (container) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.eventbrite.com/checkout-external?eid=${eventbriteEventId}`;
       iframe.style.width = '100%';
-      iframe.style.height = '750px';
+      iframe.style.height = '700px';
       iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
       container.innerHTML = ''; // Clear existing content
@@ -82,14 +82,40 @@ const Shop = () => {
       
       <Section id="tickets" title="Festival Tickets" spacing="pt-8 pb-16">
         <div className="grid grid-cols-1 gap-8">
-          <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg">
-            <h3 className="text-2xl font-serif italic mb-4">Get Your Tickets</h3>
+          {/* Styled container with theme-matching overlay */}
+          <div className="relative bg-black/30 backdrop-blur-sm border border-primary/10 p-6 rounded-lg overflow-hidden">
+            {/* Top edge glow effect */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#ea384c] to-transparent opacity-70"></div>
+            
+            {/* Side edge glow effects */}
+            <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-transparent via-[#ea384c] to-transparent opacity-30"></div>
+            <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-transparent via-[#ea384c] to-transparent opacity-30"></div>
+            
+            <h3 className="text-2xl font-serif italic mb-4 text-primary">Get Your Tickets</h3>
             <p className="mb-6">Secure your spot at the festival with our various ticket options.</p>
             
-            {/* Direct Eventbrite Widget Container - Increased size */}
-            <div id="eventbrite-widget-container" className="mb-4 rounded-lg overflow-hidden min-h-[700px] w-full">
-              {/* iframe will be injected here via JavaScript */}
+            {/* Ticket widget container with theme-matching frame */}
+            <div className="relative rounded-lg overflow-hidden">
+              {/* The iframe container */}
+              <div id="eventbrite-iframe-container" className="relative z-10 min-h-[700px] w-full backdrop-blur-sm">
+                {/* iframe will be injected here via JavaScript */}
+              </div>
+              
+              {/* Overlay frame corners - top left */}
+              <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#ea384c] rounded-tl-lg z-20 pointer-events-none"></div>
+              
+              {/* Overlay frame corners - top right */}
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#ea384c] rounded-tr-lg z-20 pointer-events-none"></div>
+              
+              {/* Overlay frame corners - bottom left */}
+              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#ea384c] rounded-bl-lg z-20 pointer-events-none"></div>
+              
+              {/* Overlay frame corners - bottom right */}
+              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#ea384c] rounded-br-lg z-20 pointer-events-none"></div>
             </div>
+            
+            {/* Bottom edge glow effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#ea384c] to-transparent opacity-70"></div>
             
             {/* Alternative button that links directly to Eventbrite */}
             <div className="text-center mt-8">
@@ -97,9 +123,9 @@ const Shop = () => {
                 href={`https://www.eventbrite.com/e/${eventbriteEventId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-black bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                className="inline-flex items-center px-8 py-4 border-2 border-[#ea384c] text-base font-medium rounded-md text-white bg-black/50 hover:bg-[#ea384c]/20 transition-all duration-300 backdrop-blur-sm shadow-[0_0_15px_rgba(234,56,76,0.5)]"
               >
-                View on Eventbrite
+                View Full Event Page
               </a>
             </div>
           </div>
