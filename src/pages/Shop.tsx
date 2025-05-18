@@ -108,7 +108,7 @@ const Shop = () => {
             
             {/* Merchandise display */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-4 rounded-lg">
+              <div className="p-4 rounded-lg">
                 <div className="aspect-square rounded-lg overflow-hidden mb-4">
                   <img 
                     src="/lovable-uploads/Hoodie.png" 
@@ -126,7 +126,7 @@ const Shop = () => {
                 <p className="text-lg font-bold mb-4">$60.00 USD</p>
               </div>
               
-              <div className="bg-black/30 backdrop-blur-sm border border-primary/10 p-4 rounded-lg">
+              <div className="p-4 rounded-lg">
                 <div className="aspect-square rounded-lg overflow-hidden mb-4">
                   <img 
                     src="/lovable-uploads/Shirt.png" 
