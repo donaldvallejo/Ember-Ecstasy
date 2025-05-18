@@ -55,6 +55,17 @@ const Shop = () => {
             moneyFormat: '%24%7B%7Bamount%7D%7D', // ${amount}
             options: {
               product: {
+                layout: 'grid',
+                buttonDestination: 'modal',
+                contents: {
+                  imgWithCarousel: true,
+                  title: true,
+                  price: true,
+                  options: true,
+                  quantity: true,
+                  buttonWithQuantity: true,
+                  description: true
+                },
                 styles: {
                   product: {
                     '@media (min-width: 601px)': {
@@ -85,6 +96,10 @@ const Shop = () => {
                 }
               },
               cart: {
+                popup: true,
+                contents: {
+                  button: true
+                },
                 styles: {
                   button: {
                     'background-color': '#ea384c',
@@ -93,6 +108,17 @@ const Shop = () => {
                       'background-color': '#d3303e'
                     }
                   }
+                }
+              },
+              modalProduct: {
+                contents: {
+                  img: true,
+                  imgWithCarousel: true,
+                  title: true,
+                  price: true,
+                  options: true,
+                  buttonWithQuantity: true,
+                  description: true
                 }
               }
             }
